@@ -64,8 +64,6 @@ function serveStatic (root, options) {
   opts.maxage = opts.maxage || opts.maxAge || 0
   opts.root = resolve(root)
 
-  console.table(opts);
-
   // construct directory listener
   var onDirectory = redirect
     ? createRedirectDirectoryListener()
@@ -93,18 +91,10 @@ function serveStatic (root, options) {
     var originalUrl = parseUrl.original(req)
     var path = parseUrl(req).pathname
 
-    console.log('fallthrough', fallthrough)
-    console.log('forwardError', forwardError)
-    console.log('originalUrl', originalUrl)
-    console.log('path', path)
-
     // make sure redirect occurs at mount
     if (path === '/' && originalUrl.pathname.substr(-1) !== '/') {
       path = ''
     }
-
-    console.log('path2', path)
-    console.log('opts2', opts)
 
     // create send stream
     var stream = send(req, path, opts)
